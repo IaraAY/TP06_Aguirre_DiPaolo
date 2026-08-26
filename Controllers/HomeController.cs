@@ -23,14 +23,7 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Sala(int id)
-    {
-        var partidaId = HttpContext.Session.GetInt32("PartidaId");
-        var puedeEntrar = BD.PuedeAccederSala(partidaId, id);   // consulta Dapper
-        if (!puedeEntrar) return RedirectToAction("AccesoDenegado");
-        HttpContext.Session.SetInt32("SalaActual", id);
-        return View("Sala", new SalaViewModel { Id = id });
-    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

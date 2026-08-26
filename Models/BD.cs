@@ -4,15 +4,38 @@ namespace TP06_Aguirre_DiPaolo.Models;
 
 public class BD{
     private string _connectionString = @"Server=localhost; DataBase=SalaDeEscape;Integrated Security=True;TrustServerCertificate=True";
-    public bool PuedeAccederSala(int? partidaId, int? salaId)
-    {
-        if (partidaId == null || salaId == null) return false;
-        using (var connection = new SqlConnection(_connectionString))
-        {
-            connection.Open();
-            var query = "SELECT COUNT(*) FROM Partidas WHERE IdPartida = @PartidaId AND IdSala = @IdSala";
-            var count = connection.ExecuteScalar<int>(query, new { PartidaId = partidaId, SalaId = salaId });
-            return count > 0;
+    public Sala GetSala(int idSala){
+        using(SqlConnection connection = new SqlConnection(_connectionString)){
+            string query = "SELECT * FROM Sala WHERE IdSala = @IdSala";;
+            Sala sala = connection.QueryFirstOrDefault<Sala>(query, new { IdSala = idSala });
+        }
+        if(sala != null){
+            return sala;
+        } else {
+            throw new Exception("No se encontró la sala con el ID proporcionado.");
+        }
+    }
+    public bool ValidarRespuesta(int idSala, string respuesta){
+        using(SqlConnection connection = new SqlConnection(_connectionString)){
+            string query = "SELECT * FROM Sala WHERE IdSala = @IdSala AND Respuesta = @Respuesta"; 
+            Sala sala = connection.QueryFirstOrDefault<Sala>(query, new { IdSala = idSala, Respuesta = respuesta });
+        }
+        if(sala != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void GuardarJugador(string nombre){
+        using(SqlConnection connection = new SqlConnection(_connectionString)){
+            DateTime fechaInicio = DateTime.Now;
+            string query = "INSERT INTO Partidas (FechaInicio, Estado, IdSala) VALUES (@fechaInicio, 1, 1)";
+            connection.Execute(query, new { FechaInicio = fechaInicio});
+            // Obtener el IdPartida de la partida recién insertada
+            query = "SELECT TOP 1 IdPartida FROM Partidas ORDER BY IdPartida DESC";
+            int idPartida = connection.QueryFirstOrDefault<int>(query);
+            query = "INSERT INTO Jugadores (Nombre, IdPartida) VALUES (@Nombre, @IdPartida)";
+            connection.Execute(query, new { Nombre = nombre, IdPartida = idPartida });
         }
     }
 }
