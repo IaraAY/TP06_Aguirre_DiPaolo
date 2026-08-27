@@ -18,3 +18,20 @@ function mostrarPista() {
     var pista = document.getElementById("pista").value;
     alert(pista);
 }
+function mostrarPopUp(indice) {
+        var popUp = document.getElementById("popUp");
+        var popUpImagen = document.getElementById("popUpImagen");
+        var popUpTexto = document.getElementById("popUpTexto");
+
+        // Cambiar la imagen y el texto del pop up según el índice
+        popUpImagen.src = "@ViewBag.sala.Archivos[indice]";
+        popUpTexto.textContent = "Información de la imagen " + (indice + 1);
+
+        // Mostrar el pop up
+        popUp.style.display = "block";
+    }
+
+    function cerrarPopUp() {
+        var popUp = document.getElementById("popUp");
+        popUp.style.display = "none";
+    }
