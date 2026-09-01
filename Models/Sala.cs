@@ -10,4 +10,5 @@ public class Sala{
     public string MensajeCorrecto { get; set; }
     public string ImagenCorrecto { get; set; }
     public int Tipo { get; set; }
+    public string Archivo { get; set; }
 }

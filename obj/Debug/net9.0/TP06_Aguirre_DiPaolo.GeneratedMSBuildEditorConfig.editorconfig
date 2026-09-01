@@ -24,16 +24,20 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[Z:/2026/Programación/TP06_Aguirre_DiPaolo/Views/Home/MensajeCorrecto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNZW5zYWplQ29ycmVjdG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [Z:/2026/Programación/TP06_Aguirre_DiPaolo/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2026/Programación/TP06_Aguirre_DiPaolo/Views/Salas/MensajeCorrecto.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXNcTWVuc2FqZUNvcnJlY3RvLmNzaHRtbA==
+[Z:/2026/Programación/TP06_Aguirre_DiPaolo/Views/Home/Tipo1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUaXBvMS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2026/Programación/TP06_Aguirre_DiPaolo/Views/Salas/Tipo1.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXNcVGlwbzEuY3NodG1s
+[Z:/2026/Programación/TP06_Aguirre_DiPaolo/Views/Home/Tipo2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUaXBvMi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [Z:/2026/Programación/TP06_Aguirre_DiPaolo/Views/Shared/Error.cshtml]

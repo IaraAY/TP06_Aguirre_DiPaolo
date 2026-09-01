@@ -1,10 +1,22 @@
-<!-- View for Tipo1. Tipo 1 va a mostrar el nombre de la habitación en un h1, tener un texto en un p, una imagen en un img y un teclado numérico en el medio que va a poner los numeros en un campo input. La información de la sala la recibe de un ViewBag -->
 @{
-    ViewData["Title"] = "Tipo 1";
+    ViewData["Title"] = "Tipo 2";
 }
+<!-- View for Tipo2. Tipo 2 va a mostrar el nombre de la habitación en un h1, tener un texto en un p, una imagen en un img. Van a haber 4 imagenes uno al lado de otro que cuando se toquen va a aparecer un pop up cuadrado con informacion que se puede cerrar -->
 <h1>@ViewBag.sala.Nombre</h1>
 <p>@ViewBag.sala.Texto</p>
 <img src="@ViewBag.sala.Imagen" alt="Imagen de la sala">
+<!-- 4 imagenes que cuando se toquen va a aparecer un pop up cuadrado con informacion que está en una ViewBag.Archivos (que es como un array de strings guardado en ViewBag.Archivos) se puede cerrar -->
+<div class="imagenes">
+    @for (int i = 0; i < ViewBag.Archivos.Length; i++)
+    {
+        <img src="@ViewBag.Archivos[i]" alt="Imagen @i" onclick="mostrarPopup(@i)" />
+    }
+</div>
+<!-- Pop up cuadrado con informacion que se puede cerrar -->
+<div id="popup" class="popup">
+    <span class="cerrar" onclick="cerrarPopup()">&times;</span>
+    <div id="contenidoPopup"></div>
+</div>
 <!-- Teclado numérico; el input de respuesta se envía al controller  -->
 <div class="teclado">
     <input type="text" id="input" readonly>
@@ -20,7 +32,7 @@
         <button class="tecla" onclick="agregarNumero(9)">9</button>
         <button class="tecla" onclick="borrar()">Borrar</button>
         <button class="tecla" onclick="agregarNumero(0)">0</button>
-        <form method="post" action="/Salas/VerificarRespuesta">
+       <form method="post" action="@Url.Action("VerificarRespuesta", "Home")">
             <input type="hidden" name="respuesta" id="respuesta">
             <input type="hidden" name="salaId" value="@ViewBag.sala.IdSala">
             <input type="submit" value="Enviar">
@@ -29,4 +41,4 @@
 </div>
 <!-- Botón de pista que solo muestra la pista si el jugador lo solicita; la pista está en el ViewBag, mandala por hidden -->
 <button class="tecla" onclick="mostrarPista()">Pista</button>
-<input type="hidden" id="pista" value="@ViewBag.sala.Pista">
+<input type="hidden" id="pista" value="@ViewBag.sala.Pista">    

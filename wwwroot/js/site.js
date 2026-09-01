@@ -13,11 +13,19 @@ function borrar() {
     document.getElementById("input").value = "";
     document.getElementById("respuesta").value = "";
 }
-//mostrar la pista en un alert
+//mostrar la pista en el div pistaMsj, si se toca aparece si se toca devuelta desaparece
+
 function mostrarPista() {
     var pista = document.getElementById("pista").value;
-    alert(pista);
+    var pistaMsj = document.getElementById("pistaMsj");
+    if (pistaMsj.style.display === "none") {
+        pistaMsj.style.display = "block";
+        pistaMsj.textContent = pista;
+    } else {
+        pistaMsj.style.display = "none";
+    }
 }
+
 function mostrarPopUp(indice) {
         var popUp = document.getElementById("popUp");
         var popUpImagen = document.getElementById("popUpImagen");

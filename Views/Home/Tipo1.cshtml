@@ -1,0 +1,33 @@
+<!-- View for Tipo1. Tipo 1 va a mostrar el nombre de la habitación en un h1, tener un texto en un p, una imagen en un img y un teclado numérico en el medio que va a poner los numeros en un campo input. La información de la sala la recibe de un ViewBag -->
+@{
+    ViewData["Title"] = "Tipo 1";
+}
+<h1>@ViewBag.sala.Nombre</h1>
+<p>@ViewBag.sala.Texto</p>
+<img src="@ViewBag.sala.Imagen" alt="Imagen de la sala">
+<!-- Teclado numérico; el input de respuesta que es lo que ingresó el usuario en el teclado numérico se envía al controller  -->
+<div class="teclado">
+    <input type="text" id="input" readonly>
+    <div class="teclas">
+        <button class="tecla" onclick="agregarNumero(1)">1</button>
+        <button class="tecla" onclick="agregarNumero(2)">2</button>
+        <button class="tecla" onclick="agregarNumero(3)">3</button>
+        <button class="tecla" onclick="agregarNumero(4)">4</button>
+        <button class="tecla" onclick="agregarNumero(5)">5</button>
+        <button class="tecla" onclick="agregarNumero(6)">6</button>
+        <button class="tecla" onclick="agregarNumero(7)">7</button>
+        <button class="tecla" onclick="agregarNumero(8)">8</button>
+        <button class="tecla" onclick="agregarNumero(9)">9</button>
+        <button class="tecla" onclick="borrar()">Borrar</button>
+        <button class="tecla" onclick="agregarNumero(0)">0</button>
+        <form method="post" action="@Url.Action("VerificarRespuesta", "Home")">
+            <input type="hidden" name="respuesta" id="respuesta">
+            <input type="hidden" name="salaId" value="@ViewBag.sala.IdSala">
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+</div>
+<!-- Botón de pista que solo muestra la pista si el jugador lo solicita; la pista está en el ViewBag, mandala por hidden -->
+<button class="tecla" onclick="mostrarPista()">Pista</button>
+<input type="hidden" id="pista" value="@ViewBag.sala.Pista">
+<div id="pistaMsj"></div> 

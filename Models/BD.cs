@@ -5,9 +5,10 @@ namespace TP06_Aguirre_DiPaolo.Models;
 public class BD{
     private string _connectionString = @"Server=localhost; DataBase=SalaDeEscape;Integrated Security=True;TrustServerCertificate=True";
     public Sala GetSala(int idSala){
+        Sala sala;
         using(SqlConnection connection = new SqlConnection(_connectionString)){
-            string query = "SELECT * FROM Sala WHERE IdSala = @IdSala";;
-            Sala sala = connection.QueryFirstOrDefault<Sala>(query, new { IdSala = idSala });
+            string query = "SELECT * FROM Salas WHERE IdSala = @IdSala";;
+            sala = connection.QueryFirstOrDefault<Sala>(query, new { IdSala = idSala });
         }
         if(sala != null){
             return sala;
@@ -15,10 +16,12 @@ public class BD{
             throw new Exception("No se encontró la sala con el ID proporcionado.");
         }
     }
+
     public bool ValidarRespuesta(int idSala, string respuesta){
+        Sala sala;
         using(SqlConnection connection = new SqlConnection(_connectionString)){
-            string query = "SELECT * FROM Sala WHERE IdSala = @IdSala AND Respuesta = @Respuesta"; 
-            Sala sala = connection.QueryFirstOrDefault<Sala>(query, new { IdSala = idSala, Respuesta = respuesta });
+            string query = "SELECT * FROM Salas WHERE IdSala = @idSala AND Respuesta = @respuesta"; 
+            sala = connection.QueryFirstOrDefault<Sala>(query, new { IdSala = idSala, Respuesta = respuesta });
         }
         if(sala != null){
             return true;
