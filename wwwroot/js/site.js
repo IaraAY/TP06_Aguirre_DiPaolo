@@ -13,6 +13,9 @@ function borrar() {
     document.getElementById("input").value = "";
     document.getElementById("respuesta").value = "";
 }
+function agregarLetra(letra) {
+        document.getElementById("input").value += letra;
+}
 //mostrar la pista en el div pistaMsj, si se toca aparece si se toca devuelta desaparece
 
 function mostrarPista() {
@@ -26,20 +29,19 @@ function mostrarPista() {
     }
 }
 
-function mostrarPopUp(indice) {
-        var popUp = document.getElementById("popUp");
-        var popUpImagen = document.getElementById("popUpImagen");
-        var popUpTexto = document.getElementById("popUpTexto");
-
-        // Cambiar la imagen y el texto del pop up según el índice
-        popUpImagen.src = "@ViewBag.sala.Archivos[indice]";
-        popUpTexto.textContent = "Información de la imagen " + (indice + 1);
-
-        // Mostrar el pop up
-        popUp.style.display = "block";
+function mostrarPopup(i) {
+    var popup = document.getElementById("popup");
+    if (popup.style.display === "block") {
+        return;
     }
+    var contenidoPopup = document.getElementById("contenidoPopup");
+    var archivo = document.getElementById("archivo-" + i).value;
 
-    function cerrarPopUp() {
-        var popUp = document.getElementById("popUp");
-        popUp.style.display = "none";
-    }
+    contenidoPopup.innerHTML = archivo;
+    popup.style.display = "block";
+}
+
+function cerrarPopup() {
+    var popup = document.getElementById("popup");
+    popup.style.display = "none";
+}

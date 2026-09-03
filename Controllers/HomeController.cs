@@ -45,9 +45,8 @@ public class HomeController : Controller
             HttpContext.Session.SetString("Sala", (idSala + 1).ToString());
             return View("MensajeCorrecto");
         } else {
-            ViewBag.sala = bd.GetSala(idSala);
-            ViewBag.Error = "Respuesta incorrecta, intentalo nuevamente";
-            return RedirectToAction("Tipo" + ViewBag.sala.IdSala.ToString(), "Home");
+            Sala sala = bd.GetSala(idSala);
+            return RedirectToAction("Tipo" + ViewBag.sala.Tipo.ToString(), "Home");
         }
     }
 
@@ -64,22 +63,24 @@ public class HomeController : Controller
         BD bd = new BD();
         int idSala = int.Parse(HttpContext.Session.GetString("Sala"));
         ViewBag.sala = bd.GetSala(idSala);
-        if (ViewBag.sala == null)
-        {
-            throw new Exception("No se encontró la sala con ID " + idSala);
-        }
-        if (ViewBag.sala.Archivo == null)
-        {
-            throw new Exception("La sala " + idSala + " tiene Archivo NULL en la base de datos.");
-        }
-        ViewBag.Archivos = ViewBag.sala.Archivo.Split("Informe");
+        // Que separe el string de archivos de la sala por "Informe" y se guarde en un array de strings en el ViewBag.Archivos, pero que el primer "Informe" no haga que se separe algo diferente, es decir, que si el string de archivos es "Informe1Informe2Informe3" se guarde en el ViewBag.Archivos un array de strings con "Informe1", "Informe2" y "Informe3"
+        string[] archivos = ViewBag.sala.Archivo.Split(new string[] { "Informe" }, StringSplitOptions.RemoveEmptyEntries);
+        ViewBag.Archivos = archivos;
+        return View();
+    }
+    public IActionResult Tipo3()
+    {
+        BD bd = new BD();
+        int idSala = int.Parse(HttpContext.Session.GetString("Sala"));
+        ViewBag.sala = bd.GetSala(idSala);
         return View();
     }
 
     //Es llamada en la view de mensaje correcto y redirige a la view del siguiente nivel (que ya está guardado en Session)
     public IActionResult SiguienteNivel(){
         int idSala = int.Parse(HttpContext.Session.GetString("Sala"));
-        return RedirectToAction("Tipo" + idSala.ToString(), "Home");
+        Sala sala = new BD().GetSala(idSala);
+        return RedirectToAction("Tipo" + sala.Tipo.ToString(), "Home");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Tipo 3";
+}
+<!-- View for Tipo3. Tipo 3 va a mostrar el nombre de la habitación en un h1, tener un texto en un p, una imagen en un img y un teclado de letras en el medio que va a poner las letras en un campo input. La información de la sala la recibe de un ViewBag -->
+<h1>@ViewBag.sala.Nombre</h1>
+<p>@ViewBag.sala.Texto</p>
+<img src="@ViewBag.sala.Imagen" alt="Imagen de la sala">
+<!-- Teclado de letras; el input de respuesta que es lo que ingresó el usuario en el teclado de letras se envía al controller  -->
+<div class="teclado">
+    <input type="text" id="input" readonly>
+    <div class="teclas">
+        @foreach (char letra in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        {
+            <button class="tecla" onclick="agregarLetra('@letra')">@letra</button>
+        }
+        <button class="tecla" onclick="borrar()">Borrar</button>
+        <form method="post" action="@Url.Action("VerificarRespuesta", "Home")">
+            <input type="hidden" name="respuesta" id="respuesta">
+            <input type="hidden" name="salaId" value="@ViewBag.sala.IdSala">
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+</div>
+<button class="tecla" onclick="mostrarPista()">Pista</button>
+<input type="hidden" id="pista" value="@ViewBag.sala.Pista">
+<div id="pistaMsj"></div> 
+<!-- Hace la funcion agregar letra que va a agregar la letra que se presionó en el teclado de letras al input de respuesta -->

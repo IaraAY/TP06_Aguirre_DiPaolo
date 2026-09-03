@@ -3,6 +3,9 @@
 }
 <!-- Recibe el mensaje correcto del viewbag sala y lo muestra en un h1, además de mostrar una imagen en un img -->
 <h1>@ViewBag.sala.MensajeCorrecto</h1>
-<img src="@ViewBag.sala.ImagenCorrecto" alt="Imagen de la sala">
+@if (ViewBag.sala.ImagenCorrecto != null)
+{
+    <img src="@ViewBag.sala.ImagenCorrecto" alt="Imagen de la sala">
+}
 <!-- Botón para ir al siguiente nivel, que redirige al controller Salas y muestra la view del siguiente nivel -->
 <button onclick="location.href='@Url.Action("SiguienteNivel", "Home")'">Siguiente Sala</button>
