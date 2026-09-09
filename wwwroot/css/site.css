@@ -29,3 +29,69 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+/* Para la porrista*/
+.simon-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        max-width: 350px;
+        margin: 20px auto;
+    }
+    .paso-btn {
+        padding: 20px 10px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #333;
+        border: 2px solid #555;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+    .paso-btn.active {
+        background-color: #f39c12 !important;
+        box-shadow: 0 0 15px #f39c12;
+        transform: scale(1.05);
+    }
+    .controles-simon {
+        text-align: center;
+        margin-top: 15px;
+    }
+    /*sala laboratorio*/
+    .panel-laboratorio {
+        background-color: #1a1a1a;
+        color: #00ff66;
+        font-family: 'Courier New', Courier, monospace;
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px solid #00ff66;
+        max-width: 450px;
+        margin: 20px auto;
+        box-shadow: 0 0 20px rgba(0,255,102,0.2);
+    }
+    .fusible-grid {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+    }
+    .fusible {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .fusible-btn {
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #00ff66;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .display-reloj {
+        font-size: 2rem;
+        background: #000;
+        text-align: center;
+        padding: 10px;
+        letter-spacing: 5px;
+        border: 1px solid #00ff66;
+    }

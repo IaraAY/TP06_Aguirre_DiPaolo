@@ -39,14 +39,14 @@ public class HomeController : Controller
         BD bd = new BD();
         int idSala = int.Parse(HttpContext.Session.GetString("Sala"));
         bool esCorrecta = bd.ValidarRespuesta(idSala, respuesta);
+        Sala sala = bd.GetSala(idSala);
         //Si es correcta redirigir a la view de mensajeCorrecto, que va a mostrar una view con el mensaje correcto de la sala y le va a sumar 1 a la sala actual del session, si no es correcta mandar nuevamente a la view de la sala con un mensaje de error
         if(esCorrecta){
-            ViewBag.sala = bd.GetSala(idSala);
+            ViewBag.sala = sala;
             HttpContext.Session.SetString("Sala", (idSala + 1).ToString());
             return View("MensajeCorrecto");
         } else {
-            Sala sala = bd.GetSala(idSala);
-            return RedirectToAction("Tipo" + ViewBag.sala.Tipo.ToString(), "Home");
+            return RedirectToAction("Tipo" + sala.Tipo.ToString(), "Home");
         }
     }
 
@@ -76,9 +76,24 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Tipo4()
+    {
+        BD bd = new BD();
+        int idSala = int.Parse(HttpContext.Session.GetString("Sala"));
+        ViewBag.sala = bd.GetSala(idSala);
+        return View();
+    }
+
+    public IActionResult Completado()
+    {
+        return View();
+    }
     //Es llamada en la view de mensaje correcto y redirige a la view del siguiente nivel (que ya está guardado en Session)
     public IActionResult SiguienteNivel(){
         int idSala = int.Parse(HttpContext.Session.GetString("Sala"));
+        if(idSala == 7){
+            return RedirectToAction("Completado", "Home");
+        }
         Sala sala = new BD().GetSala(idSala);
         return RedirectToAction("Tipo" + sala.Tipo.ToString(), "Home");
     }

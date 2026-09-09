@@ -1,0 +1,34 @@
+@{
+    ViewData["Title"] = "Tipo 4";
+}
+<h1>@ViewBag.sala.Nombre</h1>
+<p>@ViewBag.sala.Texto</p>
+
+<div class="panel-laboratorio">
+    <h3>SISTEMA DE CONTENCIÓN — OVERRIDE</h3>
+    <p>Ajusta el nivel de carga del Expediente al valor patrón [05]:</p>
+    
+    <div class="fusible-grid">
+        <div class="fusible">
+            <span>VOLT 1</span>
+            <button class="fusible-btn" onclick="cambiarValor(1)">+</button>
+            <span id="val-1">0</span>
+        </div>
+        <div class="fusible">
+            <span>VOLT 2</span>
+            <button class="fusible-btn" onclick="cambiarValor(2)">+</button>
+            <span id="val-2">0</span>
+        </div>
+    </div>
+
+    <div class="display-reloj" id="displayTotal">00:00</div>
+    <p style="text-align:center; font-size: 0.8rem; margin-top: 5px;">CARGA REQUERIDA: EXPD. 05 / HORA 00:05</p>
+</div>
+
+<!-- Formulario para enviar la clave combinada al Controller -->
+<form method="post" action="@Url.Action("VerificarRespuesta", "Home")" style="text-align: center;">
+    <input type="text" id="inputRespuesta" name="respuesta" placeholder="Ingrese 050005" style="padding: 8px; text-align: center; font-size: 1.2rem;" readonly />
+    <input type="hidden" name="salaId" value="@ViewBag.sala.IdSala" />
+    <br/><br/>
+    <button type="submit" class="btn btn-success">Reiniciar Sistema</button>
+</form>

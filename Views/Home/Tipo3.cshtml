@@ -1,27 +1,34 @@
 @{
     ViewData["Title"] = "Tipo 3";
 }
-<!-- View for Tipo3. Tipo 3 va a mostrar el nombre de la habitación en un h1, tener un texto en un p, una imagen en un img y un teclado de letras en el medio que va a poner las letras en un campo input. La información de la sala la recibe de un ViewBag -->
 <h1>@ViewBag.sala.Nombre</h1>
 <p>@ViewBag.sala.Texto</p>
-<img src="@ViewBag.sala.Imagen" alt="Imagen de la sala">
-<!-- Teclado de letras; el input de respuesta que es lo que ingresó el usuario en el teclado de letras se envía al controller  -->
-<div class="teclado">
-    <input type="text" id="input" readonly>
-    <div class="teclas">
-        @foreach (char letra in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-        {
-            <button class="tecla" onclick="agregarLetra('@letra')">@letra</button>
-        }
-        <button class="tecla" onclick="borrar()">Borrar</button>
-        <form method="post" action="@Url.Action("VerificarRespuesta", "Home")">
-            <input type="hidden" name="respuesta" id="respuesta">
-            <input type="hidden" name="salaId" value="@ViewBag.sala.IdSala">
-            <input type="submit" value="Enviar">
-        </form>
-    </div>
+<img src="~/images/@ViewBag.sala.Imagen" alt="Imagen de la sala" style="max-width: 100%; height: auto;" />
+
+<div class="controles-simon">
+    <button id="btnVerSecuencia" class="btn btn-warning" onclick="reproducirSecuencia()">Ver Secuencia de Pasos</button>
+    <p id="estadoSimon" style="margin-top: 10px; font-weight: bold;"></p>
 </div>
-<button class="tecla" onclick="mostrarPista()">Pista</button>
-<input type="hidden" id="pista" value="@ViewBag.sala.Pista">
-<div id="pistaMsj"></div> 
-<!-- Hace la funcion agregar letra que va a agregar la letra que se presionó en el teclado de letras al input de respuesta -->
+
+<!-- Tablero del Simon Dice con los movimientos de la Porrista -->
+<div class="simon-container">
+    <button class="paso-btn" id="btn-C" onclick="presionarBoton('C', 'Cruce de brazos')">Cruce de brazos</button>
+    <button class="paso-btn" id="btn-R" onclick="presionarBoton('R', 'Rueda de carro')">Rueda de carro</button>
+    <button class="paso-btn" id="btn-O" onclick="presionarBoton('O', 'Onda de cadera')">Onda de cadera</button>
+    <button class="paso-btn" id="btn-W" onclick="presionarBoton('W', 'Wave de pompones')">Wave de pompones</button>
+    <button class="paso-btn" id="btn-E" onclick="presionarBoton('E', 'Explosión final')" style="grid-column: span 2;">Explosión final</button>
+</div>
+
+<!-- Formulario oculto que envía la respuesta al servidor -->
+<form id="formRespuesta" method="post" action="@Url.Action("VerificarRespuesta", "Home")" style="text-align: center; margin-top: 15px;">
+    <input type="hidden" name="respuesta" id="respuesta" />
+    <input type="hidden" name="salaId" value="@ViewBag.sala.IdSala" />
+    <button type="submit" class="btn btn-primary" id="btnEnviar" disabled>Confirmar Secuencia</button>
+    <button type="button" class="btn btn-danger" onclick="reiniciarSecuencia()">Reiniciar</button>
+</form>
+
+<div style="text-align: center; margin-top: 15px;">
+    <button class="btn btn-secondary" onclick="mostrarPista()">Pista</button>
+    <input type="hidden" id="pista" value="@ViewBag.sala.Pista" />
+    <div id="pistaMsj" style="display:none; margin-top:10px; font-style: italic;"></div>
+</div>

@@ -66,7 +66,6 @@ Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\rjsmcshtml.dswa.cach
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\scopedcss\bundle\TP06_Aguirre_DiPaolo.styles.css
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\scopedcss\projectbundle\TP06_Aguirre_DiPaolo.bundle.scp.css
-Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\s7uqt5icqg-b9sayid5wm.gz
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\7yf329vn9n-61n19gt1b8.gz
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\08bx83gjpg-bqjiyaj88i.gz
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\wjsn59dlxc-c2jlpeoesf.gz
@@ -139,4 +138,5 @@ Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\refint\TP06_Aguirre_
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\TP06_Aguirre_DiPaolo.pdb
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\TP06_Aguirre_DiPaolo.genruntimeconfig.cache
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\ref\TP06_Aguirre_DiPaolo.dll
-Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\g488bo2lr6-bcssmdjy3r.gz
+Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\s7uqt5icqg-dmmjp1ana2.gz
+Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\g488bo2lr6-2qrbhh70c5.gz
