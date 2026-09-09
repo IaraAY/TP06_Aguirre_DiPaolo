@@ -46,23 +46,7 @@ function cerrarPopup() {
     var popup = document.getElementById("popup");
     popup.style.display = "none";
 }
-let v1 = 0;
-let v2 = 0;
 
-function cambiarValor(canal) {
-    if (canal === 1) v1 = (v1 + 1) % 10;
-    if (canal === 2) v2 = (v2 + 5) % 10;
-
-    document.getElementById('val-1').innerText = v1;
-    document.getElementById('val-2').innerText = v2;
-
-    // Formatear como expediente + hora
-    let exp = v1.toString().padStart(2, '0');
-    let hora = v2.toString().padStart(2, '0');
-        
-    document.getElementById('displayTotal').innerText = `${exp}:${hora}`;
-    document.getElementById('inputRespuesta').value = `${exp}00${hora}`;
-}
 const secuenciaCorrecta = ['C', 'R', 'O', 'W', 'E'];
 let secuenciaUsuario = [];
 
@@ -109,3 +93,103 @@ function reproducirSecuencia() {
         document.getElementById('btnEnviar').disabled = true;
         document.getElementById('estadoSimon').innerText = "Secuencia reiniciada.";
     }
+
+    let currentAngle = 0;
+    let isRunning = false;
+    let animInterval = null;
+    let progreso = 0;
+
+    // Rango en grados de la zona amarilla
+    let zoneStart = 180;
+    let zoneEnd = 230;
+
+    let codeInput = "";
+
+    function iniciarSkillCheck() {
+        if (isRunning || progreso >= 100) return;
+        
+        // Generar una zona amarilla aleatoria entre 90 y 280 grados
+        zoneStart = Math.floor(Math.random() * 190) + 90;
+        zoneEnd = zoneStart + 50;
+
+        document.getElementById('targetArea').style.background = 
+            `conic-gradient(transparent 0deg ${zoneStart}deg, #f39c12 ${zoneStart}deg ${zoneEnd}deg, transparent ${zoneEnd}deg 360deg)`;
+
+        currentAngle = 0;
+        isRunning = true;
+        
+        clearInterval(animInterval);
+        animInterval = setInterval(() => {
+            currentAngle = (currentAngle + 4) % 360;
+            document.getElementById('needle').style.transform = `rotate(${currentAngle}deg)`;
+        }, 16); // ~60fps
+    }
+
+    function hitSkillCheck() {
+        if (!isRunning) return;
+
+        clearInterval(animInterval);
+        isRunning = false;
+
+        // Verificar si la aguja cayó dentro de la zona amarilla
+        if (currentAngle >= zoneStart && currentAngle <= zoneEnd) {
+            progreso += 34; // Requiere 3 acertadas
+            if (progreso > 100) progreso = 100;
+            
+            document.getElementById('progressFill').style.width = progreso + '%';
+            document.getElementById('txtProgreso').innerText = `Reparación: ${progreso}% (¡Perfecto!)`;
+
+            if (progreso >= 100) {
+                completarCipher();
+            } else {
+                setTimeout(iniciarSkillCheck, 800);
+            }
+        } else {
+            // Falla: retrocede progreso (chispazo de la Cipher)
+            progreso = Math.max(0, progreso - 20);
+            document.getElementById('progressFill').style.width = progreso + '%';
+            document.getElementById('txtProgreso').innerText = `¡CHISPAZO! Fallaste (Reparación: ${progreso}%)`;
+            setTimeout(iniciarSkillCheck, 1200);
+        }
+    }
+
+    function completarCipher() {
+        document.getElementById('sectionSkillCheck').style.display = 'none';
+        document.getElementById('keypadBox').classList.add('active');
+        document.getElementById('txtProgreso').innerText = "¡CIPHER COMPLETADA! Ingrese la clave para abrir la puerta.";
+    }
+
+    // Lógica del teclado numérico
+    function pressKey(val) {
+        if (val === 'C') {
+            codeInput = codeInput.slice(0, -1);
+        } else if (codeInput.length < 6) {
+            codeInput += val;
+        }
+        updateDisplay();
+    }
+
+    function clearInput() {
+        codeInput = "";
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        let display = codeInput.padEnd(6, '_');
+        document.getElementById('displayInput').innerText = display;
+        document.getElementById('respuesta').value = codeInput;
+
+        if (codeInput.length === 6) {
+            document.getElementById('btnEnviar').disabled = false;
+        } else {
+            document.getElementById('btnEnviar').disabled = true;
+        }
+    }
+
+    // Permitir usar la barra espaciadora para el Skill Check
+    document.addEventListener('keydown', function(e) {
+        if (e.code === 'Space' && isRunning) {
+            e.preventDefault();
+            hitSkillCheck();
+        }
+    });

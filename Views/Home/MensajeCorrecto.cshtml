@@ -1,11 +1,24 @@
 @{
-    ViewData["Title"] = "Tipo 1";
+    ViewData["Title"] = "¡Respuesta Correcta!";
 }
-<!-- Recibe el mensaje correcto del viewbag sala y lo muestra en un h1, además de mostrar una imagen en un img -->
-<h1>@ViewBag.sala.MensajeCorrecto</h1>
-@if (ViewBag.sala.ImagenCorrecto != null)
-{
-    <img src="@ViewBag.sala.ImagenCorrecto" alt="Imagen de la sala">
-}
-<!-- Botón para ir al siguiente nivel, que redirige al controller Salas y muestra la view del siguiente nivel -->
-<button onclick="location.href='@Url.Action("SiguienteNivel", "Home")'">Siguiente Sala</button>
+
+<div class="sala-container">
+    <!-- Contenedor con formato de documento/expediente confidencial -->
+    <div class="mensaje-correcto">
+        <h2>@ViewBag.sala.MensajeCorrecto</h2>
+    </div>
+
+    @if (ViewBag.sala.ImagenCorrecto != null)
+    {
+        <div class="imagen-frame">
+            <img src="~/images/@ViewBag.sala.ImagenCorrecto" alt="Imagen de la sala">
+        </div>
+    }
+
+    <!-- Botón estilizado y centrado -->
+    <div class="mt-4">
+        <button class="btn btn-terror btn-lg" onclick="location.href='@Url.Action("SiguienteNivel", "Home")'">
+            Siguiente Sala
+        </button>
+    </div>
+</div>
