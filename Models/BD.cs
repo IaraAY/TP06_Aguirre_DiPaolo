@@ -29,7 +29,7 @@ public class BD{
             return false;
         }
     }
-    public void GuardarJugador(string nombre){
+    public int GuardarJugador(string nombre){
         using(SqlConnection connection = new SqlConnection(_connectionString)){
             DateTime fechaInicio = DateTime.Now;
             string query = "INSERT INTO Partidas (FechaInicio, Estado, IdSala) VALUES (@fechaInicio, 1, 1)";
@@ -39,6 +39,13 @@ public class BD{
             int idPartida = connection.QueryFirstOrDefault<int>(query);
             query = "INSERT INTO Jugadores (Nombre, IdPartida) VALUES (@Nombre, @IdPartida)";
             connection.Execute(query, new { Nombre = nombre, IdPartida = idPartida });
+            return idPartida; // Devolvemos el ID de la partida
+        }
+    }
+    public int GetSalaPorPartida(int idPartida){
+        using(SqlConnection connection = new SqlConnection(_connectionString)){
+            string query = "SELECT IdSala FROM Partidas WHERE IdPartida = @idPartida";
+            return connection.QueryFirstOrDefault<int>(query, new { IdPartida = idPartida });
         }
     }
 }

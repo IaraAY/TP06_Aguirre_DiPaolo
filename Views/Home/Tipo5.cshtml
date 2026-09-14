@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "Tipo 5";
+}
+
+<div class="sala-container">
+    <h1 class="titulo-terror">@ViewBag.sala.Nombre</h1>
+    <p class="texto-descripcion">@ViewBag.sala.Texto</p>
+    
+    <div class="imagen-frame">
+        <img src="~/images/@ViewBag.sala.Imagen" alt="Imagen principal">
+    </div>
+
+    <!-- CONTENEDORES SUPERIORES (DESTINO) -->
+    <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
+        <div class="casilla-destino" ondragover="permitirSoltar(event)" ondrop="soltar(event)" style="position: relative; width: 90px; height: 90px; border: 2px dashed #888;">
+            <img src="~/images/ElTaller1.png" alt="Símbolo receptor 1" style="width: 100%; height: 100%; opacity: 0.6; pointer-events: none;" />
+        </div>
+        <div class="casilla-destino" ondragover="permitirSoltar(event)" ondrop="soltar(event)" style="position: relative; width: 90px; height: 90px; border: 2px dashed #888;">
+            <img src="~/images/ElTaller2.png" alt="Símbolo receptor 2" style="width: 100%; height: 100%; opacity: 0.6; pointer-events: none;" />
+        </div>
+        <div class="casilla-destino" ondragover="permitirSoltar(event)" ondrop="soltar(event)" style="position: relative; width: 90px; height: 90px; border: 2px dashed #888;">
+            <img src="~/images/ElTaller3.png" alt="Símbolo receptor 3" style="width: 100%; height: 100%; opacity: 0.6; pointer-events: none;" />
+        </div>
+        <div class="casilla-destino" ondragover="permitirSoltar(event)" ondrop="soltar(event)" style="position: relative; width: 90px; height: 90px; border: 2px dashed #888;">
+            <img src="~/images/ElTaller4.png" alt="Símbolo receptor 4" style="width: 100%; height: 100%; opacity: 0.6; pointer-events: none;" />
+        </div>
+    </div>
+
+    <!-- CONTENEDOR INFERIOR (ZONA DE ORIGEN) -->
+    <!-- Se agregan ondragover y ondrop para poder devolver las fichas acá -->
+    <div id="zona-origen" ondragover="permitirSoltar(event)" ondrop="soltarEnOrigen(event)" style="display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; min-height: 90px; padding: 10px; border: 1px solid #444;">
+        <img id="ficha1" src="~/images/ElTaller1A.png" draggable="true" ondragstart="arrastrar(event)" style="width: 80px; height: 80px; cursor: grab;" />
+        <img id="ficha2" src="~/images/ElTaller2A.png" draggable="true" ondragstart="arrastrar(event)" style="width: 80px; height: 80px; cursor: grab;" />
+        <img id="ficha3" src="~/images/ElTaller3A.png" draggable="true" ondragstart="arrastrar(event)" style="width: 80px; height: 80px; cursor: grab;" />
+        <img id="ficha4" src="~/images/ElTaller4A.png" draggable="true" ondragstart="arrastrar(event)" style="width: 80px; height: 80px; cursor: grab;" />
+    </div>
+
+    <!-- TECLADO NUMÉRICO ESTÁNDAR -->
+    <div class="teclado">
+        <input type="text" id="input" class="input-terror" readonly placeholder="...">
+        
+        <div class="teclas-maquina">
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(1)">1</button>
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(2)">2</button>
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(3)">3</button>
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(4)">4</button>
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(5)">5</button>
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(6)">6</button>
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(7)">7</button>
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(8)">8</button>
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(9)">9</button>
+            <div class="vacio"></div>
+            <button type="button" class="tecla tecla-circulo" onclick="agregarNumero(0)">0</button>
+            <div class="vacio"></div>
+        </div>
+
+        <div class="teclado-acciones">
+            <button type="button" class="btn-terror btn-accion" onclick="borrar()">Borrar</button>
+            <form method="post" action="@Url.Action("VerificarRespuesta", "Home")" class="form-inline">
+                <input type="hidden" name="respuesta" id="respuesta">
+                <input type="hidden" name="salaId" value="@ViewBag.sala.IdSala">
+                <input type="submit" class="btn-terror btn-enviar" value="Enviar">
+            </form>
+        </div>
+    </div>
+
+    <div class="pista-seccion">
+        <button type="button" class="btn-terror btn-pista" onclick="mostrarPista()">Pista</button>
+        <input type="hidden" id="pista" value="@ViewBag.sala.Pista">
+        <div id="pistaMsj" class="pista-caja"></div>
+    </div>
+</div>

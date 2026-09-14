@@ -26,6 +26,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <!-- Aca mostramos el IdPartida si existe en la Session -->
+                            @if (Context.Session.GetString("IdPartida") != null)
+                            {
+                                <span class="navbar-text ms-auto text-dark font-weight-bold">
+                                    Id de la partida: @Context.Session.GetString("IdPartida")
+                                </span>
+                            }
+                        </li>
                     </ul>
                 </div>
             </div>

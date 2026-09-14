@@ -193,3 +193,42 @@ function reproducirSecuencia() {
             hitSkillCheck();
         }
     });
+function permitirSoltar(ev) {
+    ev.preventDefault();
+}
+
+function arrastrar(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function soltar(ev) {
+    ev.preventDefault();
+    let idFicha = ev.dataTransfer.getData("text");
+    let ficha = document.getElementById(idFicha);
+    let casilla = ev.currentTarget;
+    
+    // Verificamos si la casilla no tiene otra ficha arrastrada encima
+    if (casilla.querySelectorAll('img[draggable="true"]').length === 0) {
+        // Estilamos la ficha para superponerla exactamente arriba de la imagen fija
+        ficha.style.position = "absolute";
+        ficha.style.top = "5px";
+        ficha.style.left = "5px";
+        ficha.style.width = "80px";
+        ficha.style.height = "80px";
+        
+        casilla.appendChild(ficha);
+    }
+}
+
+function soltarEnOrigen(ev) {
+    ev.preventDefault();
+    let idFicha = ev.dataTransfer.getData("text");
+    let ficha = document.getElementById(idFicha);
+    
+    // Restauramos el comportamiento y posicionamiento original
+    ficha.style.position = "static";
+    ficha.style.width = "80px";
+    ficha.style.height = "80px";
+
+    document.getElementById("zona-origen").appendChild(ficha);
+}

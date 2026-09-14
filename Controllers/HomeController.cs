@@ -24,14 +24,17 @@ public class HomeController : Controller
     }
     //Que reciba el nombre del jugador y lo guarde en la base de datos
     [HttpPost]
-    public IActionResult GuardarJugador(string nombre){
-        BD bd = new BD();
-        bd.GuardarJugador(nombre);
-        ViewBag.sala = bd.GetSala(1);
-        HttpContext.Session.SetString("NombreJugador", nombre);
-        HttpContext.Session.SetString("Sala", "1");
-        return RedirectToAction("Tipo1", "Home");
-    }
+    [HttpPost]
+public IActionResult GuardarJugador(string nombre){
+    BD bd = new BD();
+    int idPartida = bd.GuardarJugador(nombre); // Guardamos y recibimos el ID
+    ViewBag.sala = bd.GetSala(1);
+    HttpContext.Session.SetString("NombreJugador", nombre);
+    HttpContext.Session.SetString("Sala", "1");
+    HttpContext.Session.SetString("IdPartida", idPartida.ToString());
+
+    return RedirectToAction("Tipo1", "Home");
+}
 
     //Hacer un verificar respuesta que recibe la respuesta de la sala y el id de la sala y verifique si es correcta o no
     [HttpPost]
@@ -84,6 +87,14 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Tipo5()
+    {
+        BD bd = new BD();
+        int idSala = int.Parse(HttpContext.Session.GetString("Sala"));
+        ViewBag.sala = bd.GetSala(idSala);
+        return View();
+    }
+
     public IActionResult Completado()
     {
         return View();
@@ -96,6 +107,21 @@ public class HomeController : Controller
         }
         Sala sala = new BD().GetSala(idSala);
         return RedirectToAction("Tipo" + sala.Tipo.ToString(), "Home");
+    }
+    [HttpPost]
+    public IActionResult ContinuarPartida(int idPartida){
+        BD bd = new BD();
+        int idSala = bd.GetSalaPorPartida(idPartida);
+
+        if(idSala != 0){
+            HttpContext.Session.SetString("IdPartida", idPartida.ToString());
+            HttpContext.Session.SetString("Sala", idSala.ToString());
+            
+            Sala sala = bd.GetSala(idSala);
+            return RedirectToAction("Tipo" + sala.Tipo.ToString(), "Home");
+        } else {
+            return RedirectToAction("Index");
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

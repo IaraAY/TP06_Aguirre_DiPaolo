@@ -2,8 +2,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-<form method="post" action="/Home/GuardarJugador">
+<h3>Nueva Partida</h3>
+<form method="post" action="@Url.Action("GuardarJugador", "Home")">
     <p>Ingrese su nombre:</p>
-    <input type="text" name="Nombre" placeholder="Su nombre"></input>
-    <button type="submit">Guardar</button>
+    <input type="text" name="Nombre" placeholder="Su nombre" required />
+    <button type="submit">Iniciar</button>
+</form>
+
+<h3>Continuar Partida</h3>
+<form method="post" action="@Url.Action("ContinuarPartida", "Home")">
+    <p>Ingrese el ID de su partida:</p>
+    <input type="number" name="idPartida" placeholder="Ej: 5" required />
+    <button type="submit">Cargar</button>
 </form>
