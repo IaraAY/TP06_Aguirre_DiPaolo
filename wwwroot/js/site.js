@@ -47,52 +47,52 @@ function cerrarPopup() {
     popup.style.display = "none";
 }
 
-const secuenciaCorrecta = ['C', 'R', 'O', 'W', 'E'];
+const secuenciaCorrecta = ['F', 'U', 'E', 'E', 'V', 'E', 'L', 'Y', 'N', 'C', 'R', 'O', 'W', 'E'];
 let secuenciaUsuario = [];
 
 function reproducirSecuencia() {
     let i = 0;
     document.getElementById('estadoSimon').innerText = "Observa los pasos...";
     let interval = setInterval(() => {
-    let letra = secuenciaCorrecta[i];
-    iluminarBoton(letra);
-    i++;
-    if (i >= secuenciaCorrecta.length) {
-        clearInterval(interval);
-        setTimeout(() => {
-             document.getElementById('estadoSimon').innerText = "¡Tu turno! Repite la secuencia.";
-        }, 800);
-    }
-}, 800);
+        let letra = secuenciaCorrecta[i];
+        iluminarBoton(letra);
+        i++;
+        if (i >= secuenciaCorrecta.length) {
+            clearInterval(interval);
+            setTimeout(() => {
+                document.getElementById('estadoSimon').innerText = "¡Tu turno! Repite la secuencia.";
+            }, 800);
+        }
+    }, 800);
 }
 
-    function iluminarBoton(letra) {
-        let btn = document.getElementById('btn-' + letra);
-        if (btn) {
-            btn.classList.add('active');
-            setTimeout(() => btn.classList.remove('active'), 400);
-        }
+function iluminarBoton(letra) {
+    let btn = document.getElementById('btn-' + letra);
+    if (btn) {
+        btn.classList.add('active');
+        setTimeout(() => btn.classList.remove('active'), 400);
     }
+}
 
-    function presionarBoton(letra) {
-        iluminarBoton(letra);
-        secuenciaUsuario.push(letra);
-        
-        // Actualizar el valor oculto para el controlador
-        document.getElementById('respuesta').value = secuenciaUsuario.join('');
+function presionarBoton(letra) {
+    iluminarBoton(letra);
+    secuenciaUsuario.push(letra);
+    
+    // Actualizar el valor oculto para el controlador
+    document.getElementById('respuesta').value = secuenciaUsuario.join('');
 
-        if (secuenciaUsuario.length === secuenciaCorrecta.length) {
-            document.getElementById('btnEnviar').disabled = false;
-            document.getElementById('estadoSimon').innerText = "Secuencia lista. ¡Haz clic en Confirmar!";
-        }
+    if (secuenciaUsuario.length === secuenciaCorrecta.length) {
+        document.getElementById('btnEnviar').disabled = false;
+        document.getElementById('estadoSimon').innerText = "Secuencia lista. ¡Haz clic en Confirmar!";
     }
+}
 
-    function reiniciarSecuencia() {
-        secuenciaUsuario = [];
-        document.getElementById('respuesta').value = "";
-        document.getElementById('btnEnviar').disabled = true;
-        document.getElementById('estadoSimon').innerText = "Secuencia reiniciada.";
-    }
+function reiniciarSecuencia() {
+    secuenciaUsuario = [];
+    document.getElementById('respuesta').value = "";
+    document.getElementById('btnEnviar').disabled = true;
+    document.getElementById('estadoSimon').innerText = "Secuencia reiniciada.";
+}
 
     let currentAngle = 0;
     let isRunning = false;
@@ -105,25 +105,26 @@ function reproducirSecuencia() {
 
     let codeInput = "";
 
-    function iniciarSkillCheck() {
-        if (isRunning || progreso >= 100) return;
-        
-        // Generar una zona amarilla aleatoria entre 90 y 280 grados
-        zoneStart = Math.floor(Math.random() * 190) + 90;
-        zoneEnd = zoneStart + 50;
+function iniciarSkillCheck() {
+    if (isRunning || progreso >= 100) return;
+    
+    // Zona amarilla chica (rango de 25 grados)
+    zoneStart = Math.floor(Math.random() * 190) + 90;
+    zoneEnd = zoneStart + 25; 
 
-        document.getElementById('targetArea').style.background = 
-            `conic-gradient(transparent 0deg ${zoneStart}deg, #f39c12 ${zoneStart}deg ${zoneEnd}deg, transparent ${zoneEnd}deg 360deg)`;
+    document.getElementById('targetArea').style.background = 
+        `conic-gradient(transparent 0deg ${zoneStart}deg, #f39c12 ${zoneStart}deg ${zoneEnd}deg, transparent ${zoneEnd}deg 360deg)`;
 
-        currentAngle = 0;
-        isRunning = true;
-        
-        clearInterval(animInterval);
-        animInterval = setInterval(() => {
-            currentAngle = (currentAngle + 4) % 360;
-            document.getElementById('needle').style.transform = `rotate(${currentAngle}deg)`;
-        }, 16); // ~60fps
-    }
+    currentAngle = 0;
+    isRunning = true;
+    
+    clearInterval(animInterval);
+    // Velocidad intermedia equilibrada: 5 grados cada 12ms
+    animInterval = setInterval(() => {
+        currentAngle = (currentAngle + 5) % 360;
+        document.getElementById('needle').style.transform = `rotate(${currentAngle}deg)`;
+    }, 8);
+}
 
     function hitSkillCheck() {
         if (!isRunning) return;
@@ -207,14 +208,12 @@ function soltar(ev) {
     let ficha = document.getElementById(idFicha);
     let casilla = ev.currentTarget;
     
-    // Verificamos si la casilla no tiene otra ficha arrastrada encima
     if (casilla.querySelectorAll('img[draggable="true"]').length === 0) {
-        // Estilamos la ficha para superponerla exactamente arriba de la imagen fija
         ficha.style.position = "absolute";
-        ficha.style.top = "5px";
-        ficha.style.left = "5px";
-        ficha.style.width = "80px";
-        ficha.style.height = "80px";
+        ficha.style.top = "0";
+        ficha.style.left = "0";
+        ficha.style.width = "120px";
+        ficha.style.height = "120px";
         
         casilla.appendChild(ficha);
     }
@@ -225,10 +224,9 @@ function soltarEnOrigen(ev) {
     let idFicha = ev.dataTransfer.getData("text");
     let ficha = document.getElementById(idFicha);
     
-    // Restauramos el comportamiento y posicionamiento original
     ficha.style.position = "static";
-    ficha.style.width = "80px";
-    ficha.style.height = "80px";
+    ficha.style.width = "120px";
+    ficha.style.height = "120px";
 
     document.getElementById("zona-origen").appendChild(ficha);
 }

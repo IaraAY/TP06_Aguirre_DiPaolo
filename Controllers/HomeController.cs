@@ -97,16 +97,17 @@ public IActionResult GuardarJugador(string nombre){
 
     public IActionResult Completado()
     {
-        return View();
-    }
-    //Es llamada en la view de mensaje correcto y redirige a la view del siguiente nivel (que ya está guardado en Session)
-    public IActionResult SiguienteNivel(){
-        int idSala = int.Parse(HttpContext.Session.GetString("Sala"));
-        if(idSala == 7){
-            return RedirectToAction("Completado", "Home");
+        BD bd = new BD();
+        // Leemos el IdPartida guardado en la Session
+        string idPartidaStr = HttpContext.Session.GetString("IdPartida");
+
+        if (!string.IsNullOrEmpty(idPartidaStr))
+        {
+            int idPartida = int.Parse(idPartidaStr);
+            bd.FinalizarPartida(idPartida);
         }
-        Sala sala = new BD().GetSala(idSala);
-        return RedirectToAction("Tipo" + sala.Tipo.ToString(), "Home");
+
+        return View();
     }
     [HttpPost]
     public IActionResult ContinuarPartida(int idPartida){
@@ -128,5 +129,18 @@ public IActionResult GuardarJugador(string nombre){
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    // Es llamada en la view de mensaje correcto y redirige a la view del siguiente nivel (que ya está guardado en Session)
+    public IActionResult SiguienteNivel(){
+        int idSala = int.Parse(HttpContext.Session.GetString("Sala"));
+        
+        // Si la sala siguiente es la 7 (o mayor a la cantidad de salas), termina el juego
+        if(idSala == 7){
+            return RedirectToAction("Completado", "Home");
+        }
+        
+        Sala sala = new BD().GetSala(idSala);
+        return RedirectToAction("Tipo" + sala.Tipo.ToString(), "Home");
     }
 }

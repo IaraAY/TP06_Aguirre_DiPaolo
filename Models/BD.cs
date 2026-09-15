@@ -48,4 +48,10 @@ public class BD{
             return connection.QueryFirstOrDefault<int>(query, new { IdPartida = idPartida });
         }
     }
+    public void FinalizarPartida(int idPartida){
+    using(SqlConnection connection = new SqlConnection(_connectionString)){
+        string query = "UPDATE Partidas SET Estado = 0 WHERE IdPartida = @idPartida";
+        connection.Execute(query, new { IdPartida = idPartida });
+    }
+}
 }

@@ -139,4 +139,4 @@ Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\TP06_Aguirre_DiPaolo
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\TP06_Aguirre_DiPaolo.genruntimeconfig.cache
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\ref\TP06_Aguirre_DiPaolo.dll
 Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\s7uqt5icqg-s9d0yd40ic.gz
-Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\g488bo2lr6-blz95qkwme.gz
+Z:\2026\Programación\TP06_Aguirre_DiPaolo\obj\Debug\net9.0\compressed\g488bo2lr6-1yghw8xx5a.gz

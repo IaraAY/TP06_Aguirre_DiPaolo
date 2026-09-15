@@ -1,21 +1,20 @@
 @{
-    ViewData["Title"] = "¡Respuesta Correcta!";
+    ViewData["Title"] = "MensajeCorrecto";
 }
 
 <div class="sala-container">
-    <!-- Contenedor con formato de documento/expediente confidencial -->
     <div class="mensaje-correcto">
         <h2>@ViewBag.sala.MensajeCorrecto</h2>
+
+        @if (ViewBag.sala.ImagenCorrecto != null)
+        {
+            <div class="imagen-frame" style="margin-top: 20px;">
+                <img src="~/images/@ViewBag.sala.ImagenCorrecto" alt="Imagen de la sala">
+            </div>
+        }
     </div>
 
-    @if (ViewBag.sala.ImagenCorrecto != null)
-    {
-        <div class="imagen-frame">
-            <img src="~/images/@ViewBag.sala.ImagenCorrecto" alt="Imagen de la sala">
-        </div>
-    }
-
-    <!-- Botón estilizado y centrado -->
+    <!-- Botón estilizado fuera del documento -->
     <div class="mt-4">
         <button class="btn btn-terror btn-lg" onclick="location.href='@Url.Action("SiguienteNivel", "Home")'">
             Siguiente Sala
